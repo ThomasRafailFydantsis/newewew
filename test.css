@@ -1,0 +1,94 @@
+*{
+    background-color: inherit;
+}
+#H8{background-color: brown; width: 100px; height: 100px; color:white}
+#G8{background-color: white; width: 100px; height: 100px; }
+#F8{background-color: brown; width: 100px; height: 100px; color:white}
+#E8{background-color: white; width: 100px; height: 100px; }
+#D8{background-color: brown; width: 100px; height: 100px; color:white}
+#C8{background-color: white; width: 100px; height: 100px; }
+#B8{background-color: brown; width: 100px; height: 100px; color:white}
+#A8{background-color: white; width: 100px; height: 100px; }
+#H7{background-color: white; width: 100px; height: 100px; }
+#G7{background-color: brown; width: 100px; height: 100px; color:white}
+#F7{background-color: white; width: 100px; height: 100px; }
+#E7{background-color: brown; width: 100px; height: 100px; color:white}
+#D7{background-color: white; width: 100px; height: 100px; }
+#C7{background-color: brown; width: 100px; height: 100px; color:white}
+#B7{background-color: white; width: 100px; height: 100px; }
+#A7{background-color: brown; width: 100px; height: 100px; color:white}
+#H6{background-color: brown; width: 100px; height: 100px; color:white}
+#G6{background-color: white; width: 100px; height: 100px; }
+#F6{background-color: brown; width: 100px; height: 100px; color:white}
+#E6{background-color: white; width: 100px; height: 100px; }
+#D6{background-color: brown; width: 100px; height: 100px; color:white}
+#C6{background-color: white; width: 100px; height: 100px; }
+#B6{background-color: brown; width: 100px; height: 100px; color:white}
+#A6{background-color: white; width: 100px; height: 100px; }
+#H5{background-color: white; width: 100px; height: 100px; }
+#G5{background-color: brown; width: 100px; height: 100px; color:white}
+#F5{background-color: white; width: 100px; height: 100px; }
+#E5{background-color: brown; width: 100px; height: 100px; color:white}
+#D5{background-color: white; width: 100px; height: 100px; }
+#C5{background-color: brown; width: 100px; height: 100px; color:white}
+#B5{background-color: white; width: 100px; height: 100px;}
+#A5{background-color: brown; width: 100px; height: 100px; color:white}
+#H4{background-color: brown; width: 100px; height: 100px; color:white}
+#G4{background-color: white; width: 100px; height: 100px; }
+#F4{background-color: brown; width: 100px; height: 100px; color:white}
+#E4{background-color: white; width: 100px; height: 100px; }
+#D4{background-color: brown; width: 100px; height: 100px; color:white}
+#C4{background-color: white; width: 100px; height: 100px; }
+#B4{background-color: brown; width: 100px; height: 100px; color:white}
+#A4{background-color: white; width: 100px; height: 100px; }
+#H3{background-color: white; width: 100px; height: 100px; }
+#G3{background-color: brown; width: 100px; height: 100px; color:white}
+#F3{background-color: white; width: 100px; height: 100px; }
+#E3{background-color: brown; width: 100px; height: 100px; color:white}
+#D3{background-color: white; width: 100px; height: 100px; }
+#C3{background-color: brown; width: 100px; height: 100px; color:white}
+#B3{background-color: white; width: 100px; height: 100px; }
+#A3{background-color: brown; width: 100px; height: 100px; color:white}
+#H2{background-color: brown; width: 100px; height: 100px; color:white}
+#G2{background-color: white; width: 100px; height: 100px; }
+#F2{background-color: brown; width: 100px; height: 100px; color:white}
+#E2{background-color: white; width: 100px; height: 100px; }
+#D2{background-color: brown; width: 100px; height: 100px; color:white}
+#C2{background-color: white; width: 100px; height: 100px;}
+#B2{background-color: brown; width: 100px; height: 100px; color:white}
+#A2{background-color: white; width: 100px; height: 100px;}
+#H1{background-color: white; width: 100px; height: 100px; }
+#G1{background-color: brown; width: 100px; height: 100px; color:white}
+#F1{background-color: white; width: 100px; height: 100px; }
+#E1{background-color: brown; width: 100px; height: 100px; color:white}
+#D1{background-color: white; width: 100px; height: 100px; }
+#C1{background-color: brown; width: 100px; height: 100px; color:white}
+#B1{background-color: white; width: 100px; height: 100px; }
+#A1{background-color: brown; width: 100px; height: 100px; color:white}
+body{
+    background-color: black;
+}
+#chars{
+    
+    color: white;
+}
+#endGame{
+    background-color: grey;
+    cursor: pointer;
+    margin-left: 50%;
+    margin-bottom: 1%;
+}
+#endGame:hover{
+    background-color: rgb(201, 201, 201);
+    cursor: pointer;
+    margin-bottom: -50px;
+}
+#board{
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+    gap: 0px;
+    width: 800px;
+    margin: 0 auto;
+    direction: rtl;
+}
