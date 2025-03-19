@@ -36,7 +36,6 @@ class Piece {
     let ioxf = xa.indexOf(xAxb); //for white king
     let ioyf = ya.indexOf(yAxb);
 
-    
     let newArr = [];
     let km = [];
 
@@ -67,76 +66,102 @@ class Piece {
           arr[h].slice(0, 1).toString() == xa[ioxf + 1] ||
           arr[h].slice(0, 1).toString() == xa[ioxf - 1]) &&
           (parseInt(arr[h].slice(1, 2)) == ya[ioyf + 1] ||
-            parseInt(arr[h].slice(1, 2)) == ya[ioyf - 1]))
-             ||
+            parseInt(arr[h].slice(1, 2)) == ya[ioyf - 1])) ||
         ((parseInt(arr[h].slice(1, 2)) == ya[ioyf] ||
           parseInt(arr[h].slice(1, 2)) == ya[ioyf + 1] ||
           parseInt(arr[h].slice(1, 2)) == ya[ioyf - 1]) &&
           (arr[h].slice(0, 1).toString() == xa[ioxf + 1] ||
-            arr[h].slice(0, 1).toString() == xa[ioxf - 1]))
-             ||
+            arr[h].slice(0, 1).toString() == xa[ioxf - 1])) ||
         (arr[h].slice(1, 2).toString() == ya[ioyf] &&
           (arr[h].slice(0, 1).toString() == xa[ioxf - 1] ||
-            arr[h].slice(0, 1).toString() == xa[ioxf + 1]))
+            arr[h].slice(0, 1).toString() == xa[ioxf + 1])) ||
+        (arr[h].slice(0, 1).toString() == xa[ioxf] &&
+          (parseInt(arr[h].slice(1, 2)) == ya[ioyf - 1] ||
+            parseInt(arr[h].slice(1, 2)) == ya[ioyf + 1]))
       ) {
-        let o = arr[h]
-        if(arr[h].length<3){
+        let o = arr[h];
+        if (arr[h].length < 3) {
           whiteKingPmoves.push(arr[h]);
-        }else if(o[2].color=='white' ){
-          onlyWhite.push(arr[h])
+        } else if (o[2].color == "white") {
+          onlyWhite.push(arr[h]);
         }
       }
     }
-   console.log(whiteKingPmoves)
-    
+    let testf = [];
     if (whiteKingPmoves.length > 0) {
       for (let i = 0; i < newArr.length; i++) {
         for (let j = 0; j < whiteKingPmoves.length; j++) {
-          if(newArr[i].name=='king'){
+          if (newArr[i].name == "king") {
             continue;
-          }else if(newArr[i].name=='pawn' && newArr[i].pawnMove(whiteKingPmoves[j].slice(0, 1).toString(),parseInt(whiteKingPmoves[j].slice(1, 2)))){
-            let io = whiteKingPmoves.indexOf(whiteKingPmoves[j]);
-            if (io > -1) {
-              whiteKingPmoves.splice(io, 1);
-            }
-          }else if(newArr[i].name=='knight' && newArr[i].knightMove(whiteKingPmoves[j].slice(0, 1).toString(),parseInt(whiteKingPmoves[j].slice(1, 2)))){
-            let io = whiteKingPmoves.indexOf(whiteKingPmoves[j]);
-            if (io > -1) {
-              whiteKingPmoves.splice(io, 1);
-            }
-          }else if(newArr[i].name=='bishop' && newArr[i].bishopMove(arr,whiteKingPmoves[j].slice(0, 1).toString(),parseInt(whiteKingPmoves[j].slice(1, 2)))){
-            let io = whiteKingPmoves.indexOf(whiteKingPmoves[j]);
-            if (io > -1) {
-              whiteKingPmoves.splice(io, 1);
-            }
-          }else if(newArr[i].name=='rook' && newArr[i].rookMove(arr,whiteKingPmoves[j].slice(0, 1).toString(),parseInt(whiteKingPmoves[j].slice(1, 2)))){
-            let io = whiteKingPmoves.indexOf(whiteKingPmoves[j]);
-            if (io > -1) {
-              whiteKingPmoves.splice(io, 1);
-            }
-          }else if(newArr[i].name=='queen' && newArr[i].queenMove(arr,whiteKingPmoves[j].slice(0, 1).toString(),parseInt(whiteKingPmoves[j].slice(1, 2)))){
-            let io = whiteKingPmoves.indexOf(whiteKingPmoves[j]);
-            if (io > -1) {
-              whiteKingPmoves.splice(io, 1);
-            }
+          } else if (
+            newArr[i].name == "pawn" &&
+            newArr[i].pawnMove(
+              whiteKingPmoves[j].slice(0, 1).toString(),
+              parseInt(whiteKingPmoves[j].slice(1, 2))
+            )
+          ) {
+            testf.push(whiteKingPmoves[j]);
+          } else if (
+            newArr[i].name == "knight" &&
+            newArr[i].knightMove(
+              whiteKingPmoves[j].slice(0, 1).toString(),
+              parseInt(whiteKingPmoves[j].slice(1, 2))
+            )
+          ) {
+            testf.push(whiteKingPmoves[j]);
+          } else if (
+            newArr[i].name == "bishop" &&
+            newArr[i].bishopMove(
+              arr,
+              whiteKingPmoves[j].slice(0, 1).toString(),
+              parseInt(whiteKingPmoves[j].slice(1, 2))
+            )
+          ) {
+            testf.push(whiteKingPmoves[j]);
+          } else if (
+            newArr[i].name == "rook" &&
+            newArr[i].rookMove(
+              arr,
+              whiteKingPmoves[j].slice(0, 1).toString(),
+              parseInt(whiteKingPmoves[j].slice(1, 2))
+            )
+          ) {
+            testf.push(whiteKingPmoves[j]);
+          } else if (
+            newArr[i].name == "queen" &&
+            newArr[i].queenMove(
+              arr,
+              whiteKingPmoves[j].slice(0, 1).toString(),
+              parseInt(whiteKingPmoves[j].slice(1, 2))
+            )
+          ) {
+            testf.push(whiteKingPmoves[j]);
           }
         }
       }
     }
-    console.log(whiteKingPmoves)
+    for (let i = 0; i < testf.length; i++) {
+      for (let j = 0; j < whiteKingPmoves.length; j++) {
+        if (testf[i].toString() == whiteKingPmoves[j].toString()) {
+          let io2 = whiteKingPmoves.indexOf(whiteKingPmoves[j]);
+          if (io2 > -1) {
+            whiteKingPmoves.splice(io2, 1);
+          }
+        }
+      }
+    }
     if (onlyWhite.length > 0) {
-      whiteKingPmoves=[...whiteKingPmoves,...onlyWhite]
-      for (let i = 0; i < pieces.length; i++) {
+      whiteKingPmoves = [...whiteKingPmoves, ...onlyWhite];
+      for (let i = 0; i < newArr.length; i++) {
         for (let j = 0; j < onlyWhite.length; j++) {
           if (
-            pieces[i].cover(
+            newArr[i].cover(
               arr,
               onlyWhite[j].slice(0, 1).toString(),
               parseInt(onlyWhite[j].slice(1, 2))
             )
           ) {
             let io = whiteKingPmoves.indexOf(onlyWhite[j]);
-            console.log(pieces[i])
             if (io > -1) {
               whiteKingPmoves.splice(io, 1);
             }
@@ -144,13 +169,12 @@ class Piece {
         }
       }
     }
-    console.log(whiteKingPmoves);
+
 
     if (whiteKingPmoves.length == 0 && onlyWhite.length > 0) {
-      console.log(" game has ended, white won");
       return true;
     } else if (whiteKingPmoves.length > 0) {
-      console.log("black kings possible moves are : " + whiteKingPmoves);
+      
       return whiteKingPmoves;
     } else {
       return [];
@@ -219,65 +243,93 @@ class Piece {
           arr[h].slice(0, 1).toString() == xa[ioxf + 1] ||
           arr[h].slice(0, 1).toString() == xa[ioxf - 1]) &&
           (parseInt(arr[h].slice(1, 2)) == ya[ioyf + 1] ||
-            parseInt(arr[h].slice(1, 2)) == ya[ioyf - 1]))
-             ||
+            parseInt(arr[h].slice(1, 2)) == ya[ioyf - 1])) ||
         ((parseInt(arr[h].slice(1, 2)) == ya[ioyf] ||
           parseInt(arr[h].slice(1, 2)) == ya[ioyf + 1] ||
           parseInt(arr[h].slice(1, 2)) == ya[ioyf - 1]) &&
           (arr[h].slice(0, 1).toString() == xa[ioxf + 1] ||
-            arr[h].slice(0, 1).toString() == xa[ioxf - 1]))
-             ||
+            arr[h].slice(0, 1).toString() == xa[ioxf - 1])) ||
         (arr[h].slice(1, 2).toString() == ya[ioyf] &&
           (arr[h].slice(0, 1).toString() == xa[ioxf - 1] ||
-            arr[h].slice(0, 1).toString() == xa[ioxf + 1]))
+            arr[h].slice(0, 1).toString() == xa[ioxf + 1])) ||
+        (arr[h].slice(0, 1).toString() == xa[ioxf] &&
+          (parseInt(arr[h].slice(1, 2)) == ya[ioyf - 1] ||
+            parseInt(arr[h].slice(1, 2)) == ya[ioyf + 1]))
       ) {
-        let o = arr[h]
+        let o = arr[h];
         if (arr[h].length < 3) {
           whiteKingPmoves.push(arr[h]);
+        } else if (arr[h].length > 2 && o[2].color == "black") {
+          onlyBlack.push(arr[h]);
         }
-       else if(arr[h].length>2 && o[2].color=='black'){
-          onlyBlack.push(arr[h])
+      }
+    }
+    let testf = [];
+    if (whiteKingPmoves.length > 0) {
+      for (let i = 0; i < newArr.length; i++) {
+        for (let j = 0; j < whiteKingPmoves.length; j++) {
+          if (newArr[i].name == "king") {
+            continue;
+          } else if (
+            newArr[i].name == "pawn" &&
+            newArr[i].pawnMove(
+              whiteKingPmoves[j].slice(0, 1).toString(),
+              parseInt(whiteKingPmoves[j].slice(1, 2))
+            )
+          ) {
+            testf.push(whiteKingPmoves[j]);
+          } else if (
+            newArr[i].name == "knight" &&
+            newArr[i].knightMove(
+              whiteKingPmoves[j].slice(0, 1).toString(),
+              parseInt(whiteKingPmoves[j].slice(1, 2))
+            )
+          ) {
+            testf.push(whiteKingPmoves[j]);
+          } else if (
+            newArr[i].name == "bishop" &&
+            newArr[i].bishopMove(
+              arr,
+              whiteKingPmoves[j].slice(0, 1).toString(),
+              parseInt(whiteKingPmoves[j].slice(1, 2))
+            )
+          ) {
+            testf.push(whiteKingPmoves[j]);
+          } else if (
+            newArr[i].name == "rook" &&
+            newArr[i].rookMove(
+              arr,
+              whiteKingPmoves[j].slice(0, 1).toString(),
+              parseInt(whiteKingPmoves[j].slice(1, 2))
+            )
+          ) {
+            testf.push(whiteKingPmoves[j]);
+          } else if (
+            newArr[i].name == "queen" &&
+            newArr[i].queenMove(
+              arr,
+              whiteKingPmoves[j].slice(0, 1).toString(),
+              parseInt(whiteKingPmoves[j].slice(1, 2))
+            )
+          ) {
+            testf.push(whiteKingPmoves[j]);
+          }
+        }
+      }
+    }
+    for (let i = 0; i < testf.length; i++) {
+      for (let j = 0; j < whiteKingPmoves.length; j++) {
+        if (testf[i].toString() == whiteKingPmoves[j].toString()) {
+          let io2 = whiteKingPmoves.indexOf(whiteKingPmoves[j]);
+          if (io2 > -1) {
+            whiteKingPmoves.splice(io2, 1);
+          }
         }
       }
     }
 
-    console.log(whiteKingPmoves);
-    if (whiteKingPmoves.length > 0) {
-      for (let i = 0; i < newArr.length; i++) {
-        for (let j = 0; j < whiteKingPmoves.length; j++) {
-          if(newArr[i].name=='king'){
-            continue;
-          }else if(newArr[i].name=='pawn' && newArr[i].pawnMove(whiteKingPmoves[j].slice(0, 1).toString(),parseInt(whiteKingPmoves[j].slice(1, 2)))){
-            let io = whiteKingPmoves.indexOf(whiteKingPmoves[j]);
-            if (io > -1) {
-              whiteKingPmoves.splice(io, 1);
-            }
-          }else if(newArr[i].name=='knight' && newArr[i].knightMove(whiteKingPmoves[j].slice(0, 1).toString(),parseInt(whiteKingPmoves[j].slice(1, 2)))){
-            let io = whiteKingPmoves.indexOf(whiteKingPmoves[j]);
-            if (io > -1) {
-              whiteKingPmoves.splice(io, 1);
-            }
-          }else if(newArr[i].name=='bishop' && newArr[i].bishopMove(arr,whiteKingPmoves[j].slice(0, 1).toString(),parseInt(whiteKingPmoves[j].slice(1, 2)))){
-            let io = whiteKingPmoves.indexOf(whiteKingPmoves[j]);
-            if (io > -1) {
-              whiteKingPmoves.splice(io, 1);
-            }
-          }else if(newArr[i].name=='rook' && newArr[i].rookMove(arr,whiteKingPmoves[j].slice(0, 1).toString(),parseInt(whiteKingPmoves[j].slice(1, 2)))){
-            let io = whiteKingPmoves.indexOf(whiteKingPmoves[j]);
-            if (io > -1) {
-              whiteKingPmoves.splice(io, 1);
-            }
-          }else if(newArr[i].name=='queen' && newArr[i].queenMove(arr,whiteKingPmoves[j].slice(0, 1).toString(),parseInt(whiteKingPmoves[j].slice(1, 2)))){
-            let io = whiteKingPmoves.indexOf(whiteKingPmoves[j]);
-            if (io > -1) {
-              whiteKingPmoves.splice(io, 1);
-            }
-          }
-          }
-        }
-      }
-    
     if (onlyBlack.length > 0) {
+      whiteKingPmoves = [...whiteKingPmoves, ...onlyBlack];
       for (let i = 0; i < newArr.length; i++) {
         for (let j = 0; j < onlyBlack.length; j++) {
           if (
@@ -288,10 +340,8 @@ class Piece {
             )
           ) {
             let io = whiteKingPmoves.indexOf(onlyBlack[j]);
-            console.log(onlyBlack[j])
             if (io > -1) {
               whiteKingPmoves.splice(io, 1);
-              console.log(whiteKingPmoves[j]);
             }
           }
         }
@@ -299,17 +349,14 @@ class Piece {
     }
 
     if (whiteKingPmoves.length == 0 && onlyBlack.length > 0) {
-      console.log("White king is checked");
       return true;
     } else if (whiteKingPmoves.length > 0) {
-      console.log("white kings possible moves are : " + whiteKingPmoves);
       return whiteKingPmoves;
     } else {
       return [];
     }
   }
   check(arr, x, y) {
-    
     let xa = ["A", "B", "C", "D", "E", "F", "G", "H"];
     let ls = localStorage.getItem(this.spec);
     let xAx = ls.substring(ls.length - 4, ls.length - 3);
@@ -531,9 +578,16 @@ class Piece {
           arrx.push(arr[i]);
         }
       }
-      let g = [...arra, ...arrx];
-
-      if (yAx < y && x == xAx) {
+      let f = [...arra, ...arrx];
+      let h = [];
+      for (let i = 0; i < f.length; i++) {
+        if (f[i].slice(0, 2).toString() == [x, y].toString()) {
+          h.push(f[i]);
+        }
+      }
+      if (h.length == 0) {
+        return false;
+      } else if (yAx < y && x == xAx) {
         let possibleMove = [];
         for (let l = 0; l < arra.length; l++) {
           if (
@@ -683,6 +737,13 @@ class Piece {
         }
       }
 
+      let f = [...arra, ...arrx];
+      let h = [];
+      for (let i = 0; i < f.length; i++) {
+        if (f[i].slice(0, 2).toString() == [x, y].toString()) {
+          h.push(f[i]);
+        }
+      }
       if (yAx < y && x == xAx) {
         let possibleMove = [];
         for (let l = 0; l < arra.length; l++) {
@@ -1013,7 +1074,6 @@ class Piece {
           let obj = kouti[0];
           let c = obj[2];
           if (c.color != this.color) {
-            console.log("piece is covered");
             return true;
           } else return false;
         }
@@ -1028,22 +1088,24 @@ class Piece {
 
     if (this.name == "pawn" && this.color == "white") {
       if (
-        (y == yAx + 1 && xAx != x) && (x == xa[xa.indexOf(xAx) + 1] ||
-        x == xa[xa.indexOf(xAx) - 1])
+        y == yAx + 1 &&
+        xAx != x &&
+        (x == xa[xa.indexOf(xAx) + 1] || x == xa[xa.indexOf(xAx) - 1])
       ) {
-        return true
-      }else{
-        return false
+        return true;
+      } else {
+        return false;
       }
     }
     if (this.name == "pawn" && this.color == "black") {
       if (
-        ((y == yAx - 1 && xAx != x )&& (x == xa[xa.indexOf(xAx) + 1]) ||
-        x == xa[xa.indexOf(xAx) - 1])
+        y == yAx - 1 &&
+        xAx != x &&
+        (x == xa[xa.indexOf(xAx) + 1] || x == xa[xa.indexOf(xAx) - 1])
       ) {
-       return true
-      }else{
-       return false
+        return true;
+      } else {
+        return false;
       }
     }
     if (this.name == "bishop") {
@@ -1113,7 +1175,6 @@ class Piece {
         }
 
         if (test.length == 0) {
-          console.log("not a valid move");
           return false;
         } else if (ioyf < ioy && ioxf < iox) {
           let panwdeksia = [];
@@ -1125,7 +1186,9 @@ class Piece {
             }
           }
 
-          let nearest = panwdeksia.find((x) => x.length == 3);
+          let nearest = panwdeksia.find(
+            (x) => x.length == 3 && x[2].name != "king"
+          );
 
           if (!nearest) {
             return false;
@@ -1149,7 +1212,9 @@ class Piece {
             }
           }
 
-          let nearest = panwaristera.find((x) => x.length == 3);
+          let nearest = panwaristera.find(
+            (x) => x.length == 3 && x[2].name != "king"
+          );
 
           if (!nearest) {
             return false;
@@ -1174,7 +1239,9 @@ class Piece {
             }
           }
 
-          let nearest = katwaristera.find((x) => x.length == 3);
+          let nearest = katwaristera.find(
+            (x) => x.length == 3 && x[2].name != "king"
+          );
 
           if (!nearest) {
             return false;
@@ -1199,7 +1266,9 @@ class Piece {
             }
           }
 
-          let nearest = katwdeksia.find((x) => x.length == 3);
+          let nearest = katwdeksia.find(
+            (x) => x.length == 3 && x[2].name != "king"
+          );
 
           if (!nearest) {
             return false;
@@ -1236,7 +1305,16 @@ class Piece {
           arrx.push(arr[i]);
         }
       }
-      if (yAx < y && x == xAx) {
+      let f = [...arra, ...arrx];
+      let h = [];
+      for (let i = 0; i < f.length; i++) {
+        if (f[i].slice(0, 2).toString() == [x, y].toString()) {
+          h.push(f[i]);
+        }
+      }
+      if (h.length == 0) {
+        return false;
+      } else if (yAx < y && x == xAx) {
         let possibleMove = [];
         for (let l = 0; l < arra.length; l++) {
           if (
@@ -1249,13 +1327,14 @@ class Piece {
           }
         }
 
-        let nearest = possibleMove.find((x) => x.length == 3);
+        let nearest = possibleMove.find(
+          (x) => x.length == 3 && x[2].name != "king"
+        );
 
         if (nearest.slice(0, 2).toString() == [x, y].toString()) {
           let q = nearest[2];
           let fc = q.color;
           if (this.color == fc) {
-            console.log("piece is covered");
             return true;
           }
         } else {
@@ -1276,13 +1355,14 @@ class Piece {
           }
         }
 
-        let nearest = possibleMove.find((x) => x.length == 3);
+        let nearest = possibleMove.find(
+          (x) => x.length == 3 && x[2].name != "king"
+        );
 
         if (nearest.slice(0, 2).toString() == [x, y].toString()) {
           let q = nearest[2];
           let fc = q.color;
           if (this.color == fc) {
-            console.log("piece is covered");
             return true;
           }
         } else {
@@ -1304,13 +1384,14 @@ class Piece {
             break;
           }
         }
-        let nearest = possibleMove.find((x) => x.length == 3);
+        let nearest = possibleMove.find(
+          (x) => x.length == 3 && x[2].name != "king"
+        );
 
         if (nearest.slice(0, 2).toString() == [x, y].toString()) {
           let q = nearest[2];
           let fc = q.color;
           if (this.color == fc) {
-            console.log("piece is covered");
             return true;
           }
         } else {
@@ -1333,13 +1414,14 @@ class Piece {
             break;
           }
         }
-        let nearest = possibleMove.find((x) => x.length == 3);
+        let nearest = possibleMove.find(
+          (x) => x.length == 3 && x[2].name != "king"
+        );
 
         if (nearest.slice(0, 2).toString() == [x, y].toString()) {
           let q = nearest[2];
           let fc = q.color;
           if (this.color == fc) {
-            console.log("piece is covered");
             return true;
           }
         } else {
@@ -1383,13 +1465,14 @@ class Piece {
               }
             }
           }
-          let nearest = possibleMove.find((x) => x.length == 3);
+          let nearest = possibleMove.find(
+            (x) => x.length == 3 && x[2].name != "king"
+          );
 
           if (nearest.slice(0, 2).toString() == [x, y].toString()) {
             let q = nearest[2];
             let fc = q.color;
             if (this.color == fc) {
-              console.log("piece is covered");
               return true;
             }
           } else {
@@ -1407,13 +1490,13 @@ class Piece {
             }
           }
 
-          let nearest = possibleMove.find((x) => x.length == 3);
-
+          let nearest = possibleMove.find(
+            (x) => x.length == 3 && x[2].name != "king"
+          );
           if (nearest.slice(0, 2).toString() == [x, y].toString()) {
             let q = nearest[2];
             let fc = q.color;
             if (this.color == fc) {
-              console.log("piece is covered");
               return true;
             }
           } else {
@@ -1435,13 +1518,13 @@ class Piece {
               break;
             }
           }
-          let nearest = possibleMove.find((x) => x.length == 3);
-
+          let nearest = possibleMove.find(
+            (x) => x.length == 3 && x[2].name != "king"
+          );
           if (nearest.slice(0, 2).toString() == [x, y].toString()) {
             let q = nearest[2];
             let fc = q.color;
             if (this.color == fc) {
-              console.log("piece is covered");
               return true;
             }
           } else {
@@ -1464,13 +1547,13 @@ class Piece {
               break;
             }
           }
-          let nearest = possibleMove.find((x) => x.length == 3);
-
+          let nearest = possibleMove.find(
+            (x) => x.length == 3 && x[2].name != "king"
+          );
           if (nearest.slice(0, 2).toString() == [x, y].toString()) {
             let q = nearest[2];
             let fc = q.color;
             if (this.color == fc) {
-              console.log("piece is covered");
               return true;
             }
           } else {
@@ -1547,7 +1630,6 @@ class Piece {
         }
 
         if (test.length == 0) {
-          console.log("not a valid move");
           return false;
         } else if (ioyf < ioy && ioxf < iox) {
           let panwdeksia = [];
@@ -1559,7 +1641,9 @@ class Piece {
             }
           }
 
-          let nearest = panwdeksia.find((x) => x.length == 3);
+          let nearest = panwdeksia.find(
+            (x) => x.length == 3 && x[2].name != "king"
+          );
 
           if (!nearest) {
             return false;
@@ -1583,7 +1667,9 @@ class Piece {
             }
           }
 
-          let nearest = panwaristera.find((x) => x.length == 3);
+          let nearest = panwaristera.find(
+            (x) => x.length == 3 && x[2].name != "king"
+          );
 
           if (!nearest) {
             return false;
@@ -1608,7 +1694,9 @@ class Piece {
             }
           }
 
-          let nearest = katwaristera.find((x) => x.length == 3);
+          let nearest = katwaristera.find(
+            (x) => x.length == 3 && x[2].name != "king"
+          );
 
           if (!nearest) {
             return false;
@@ -1633,7 +1721,9 @@ class Piece {
             }
           }
 
-          let nearest = katwdeksia.find((x) => x.length == 3);
+          let nearest = katwdeksia.find(
+            (x) => x.length == 3 && x[2].name != "king"
+          );
 
           if (!nearest) {
             return false;
@@ -1678,7 +1768,6 @@ class Piece {
           let obj = kouti[0];
           let c = obj[2];
           if (c.color == this.color) {
-            console.log("piece is covered");
             return true;
           } else return false;
         }
@@ -1707,7 +1796,6 @@ class Piece {
           let obj = kingMoves[0];
           let c = obj[2];
           if (c.color == this.color) {
-            console.log("piece is covered");
             return true;
           } else return false;
         }
@@ -1880,10 +1968,9 @@ class Piece {
         }
 
         if (test.length == 0) {
-         
           return false;
         }
-         if (ioyf < ioy && ioxf < iox) {
+        if (ioyf < ioy && ioxf < iox) {
           let panwdeksia = [];
           for (let k = 0; k < arr.length; k++) {
             for (let j = 0; j < pd.length; j++) {
@@ -2021,7 +2108,17 @@ class Piece {
           arrx.push(arr[i]);
         }
       }
-      if (yAx < y && x == xAx) {
+
+      let f = [...arra, ...arrx];
+      let h = [];
+      for (let i = 0; i < f.length; i++) {
+        if (f[i].slice(0, 2).toString() == [x, y].toString()) {
+          h.push(f[i]);
+        }
+      }
+      if (h.length == 0) {
+        return false;
+      } else if (yAx < y && x == xAx) {
         let possibleMove = [];
         for (let l = 0; l < arra.length; l++) {
           if (
@@ -2180,7 +2277,8 @@ class Piece {
           arrx.push(arr[i]);
         }
       }
-      if ((y == yAx && x != xAx) || (y != yAx && x == xAx)) {
+
+     if ((y == yAx && x != xAx) || (y != yAx && x == xAx)) {
         if (yAx < y) {
           let possibleMove = [];
           for (let b = 0; b < arra.length; b++) {
@@ -2388,7 +2486,7 @@ class Piece {
         }
 
         if (test.length == 0) {
-          console.log("not a valid move");
+         
           return false;
         } else if (ioyf < ioy && ioxf < iox) {
           let panwdeksia = [];
@@ -2550,13 +2648,13 @@ class Piece {
     if (this.name == "king") {
       if (this.color == "white") {
         let willKingMove = [];
-        let resultm = Piece.whiteKingPossibleMoves(arr)
-       
+        let resultm = Piece.whiteKingPossibleMoves(arr);
+
         if (resultm == true) {
           endGame();
         } else if (resultm.length > 0) {
           for (let i = 0; i < resultm.length; i++) {
-            if (resultm[i].slice(0,2).toString() == [x, y].toString()) {
+            if (resultm[i].slice(0, 2).toString() == [x, y].toString()) {
               willKingMove.push(resultm[i]);
             }
           }
@@ -2570,16 +2668,16 @@ class Piece {
       if (this.color == "black") {
         let willKingMove = [];
         let resultm = Piece.blackKingPossibleMoves(arr);
-       
+
         if (resultm == true) {
           endGame();
         } else if (resultm.length > 0) {
           for (let i = 0; i < resultm.length; i++) {
-            if (resultm[i].slice(0,2).toString() == [x, y].toString()) {
+            if (resultm[i].slice(0, 2).toString() == [x, y].toString()) {
               willKingMove.push(resultm[i]);
             }
           }
-          
+
           if (willKingMove.length > 0) {
             return true;
           } else {
@@ -2594,10 +2692,12 @@ class Piece {
     let ls = localStorage.getItem(this.spec);
     let xAx = ls.substring(ls.length - 4, ls.length - 3);
     let yAx = parseInt(ls.substring(ls.length - 2, ls.length - 1));
-    
+
     if (this.name == "pawn" && this.color == "white") {
       if (
-        y == yAx + 1 && ( x == xa[xa.indexOf(xAx) + 1] ||x == xa[xa.indexOf(xAx) - 1])
+        y == yAx + 1 &&
+        x != xAx &&
+        (x == xa[xa.indexOf(xAx) + 1] || x == xa[xa.indexOf(xAx) - 1])
       ) {
         return true;
       } else {
@@ -2606,9 +2706,11 @@ class Piece {
     }
     if (this.name == "pawn" && this.color == "black") {
       if (
-        y == yAx - 1 && ( x == xa[xa.indexOf(xAx) + 1] || x == xa[xa.indexOf(xAx) - 1])
+        y == yAx - 1 &&
+        x != xAx &&
+        (x == xa[xa.indexOf(xAx) + 1] || x == xa[xa.indexOf(xAx) - 1])
       ) {
-        return true
+        return true;
       } else {
         return false;
       }
@@ -2640,7 +2742,16 @@ class Piece {
         arrx.push(arr[i]);
       }
     }
-    if (yAx < y && x == xAx) {
+    let f = [...arra, ...arrx];
+    let h = [];
+    for (let i = 0; i < f.length; i++) {
+      if (f[i].slice(0, 2).toString() == [x, y].toString()) {
+        h.push(f[i]);
+      }
+    }
+    if (h.length == 0) {
+      return false;
+    } else if (yAx < y && x == xAx) {
       let possibleMove = [];
       for (let l = 0; l < arra.length; l++) {
         if (
@@ -2653,7 +2764,9 @@ class Piece {
         }
       }
 
-      let nearest = possibleMove.find((x) => x.length == 3 && x[2].name != 'king');
+      let nearest = possibleMove.find(
+        (x) => x.length == 3 && x[2].name != "king"
+      );
 
       if (!nearest) {
         return true;
@@ -2670,8 +2783,7 @@ class Piece {
       } else {
         return false;
       }
-    }
-    if (yAx > y && x == xAx) {
+    } else if (yAx > y && x == xAx) {
       let possibleMove = [];
       let g = arra.reverse();
       for (let b = 0; b < arra.length; b++) {
@@ -2685,7 +2797,9 @@ class Piece {
         }
       }
 
-      let nearest = possibleMove.find((x) => x.length == 3);
+      let nearest = possibleMove.find(
+        (x) => x.length == 3 && x[2].name != "king"
+      );
 
       if (!nearest) {
         return true;
@@ -2702,9 +2816,7 @@ class Piece {
       } else if (parseInt(nearest.slice(1, 2)) > y) {
         return false;
       }
-    }
-
-    if (xa.indexOf(xAx) < xa.indexOf(x) && y == yAx) {
+    } else if (xa.indexOf(xAx) < xa.indexOf(x) && y == yAx) {
       let possibleMove = [];
       for (let b = 0; b < arrx.length; b++) {
         if (
@@ -2719,7 +2831,9 @@ class Piece {
         }
       }
 
-      let nearest = possibleMove.find((x) => x.length == 3);
+      let nearest = possibleMove.find(
+        (x) => x.length == 3 && x[2].name != "king"
+      );
       if (!nearest) {
         return true;
       } else if (nearest.slice(0, 2).toString() == [x, y].toString()) {
@@ -2739,24 +2853,22 @@ class Piece {
       ) {
         return false;
       }
-    }
-
-    if (xa.indexOf(xAx) > xa.indexOf(x) && y == yAx) {
+    } else if (xa.indexOf(xAx) > xa.indexOf(x) && y == yAx) {
       let g = arrx.reverse();
       let possibleMove = [];
       for (let b = 0; b < arrx.length; b++) {
         if (
-          xa.indexOf(g[b].slice(0, 1).toString()) >=
-            xa.indexOf(x.toString()) &&
-          xa.indexOf(g[b].slice(0, 1).toString()) <=
-            xa.indexOf(xAx.toString())
+          xa.indexOf(g[b].slice(0, 1).toString()) >= xa.indexOf(x.toString()) &&
+          xa.indexOf(g[b].slice(0, 1).toString()) <= xa.indexOf(xAx.toString())
         ) {
           possibleMove.push(g[b]);
         } else {
           break;
         }
       }
-      let nearest = possibleMove.find((x) => x.length == 3);
+      let nearest = possibleMove.find(
+        (x) => x.length == 3 && x[2].name != "king"
+      );
       if (!nearest) {
         return true;
       } else if (nearest.slice(0, 2).toString() == [x, y].toString()) {
@@ -2850,10 +2962,9 @@ class Piece {
       }
 
       if (test.length == 0) {
-       
         return false;
       }
-       if (ioyf < ioy && ioxf < iox) {
+      if (ioyf < ioy && ioxf < iox) {
         let panwdeksia = [];
         for (let k = 0; k < arr.length; k++) {
           for (let j = 0; j < pd.length; j++) {
@@ -2892,7 +3003,9 @@ class Piece {
           }
         }
 
-        let nearest = panwaristera.find((x) => x.length == 3&& x[2].name != "king");
+        let nearest = panwaristera.find(
+          (x) => x.length == 3 && x[2].name != "king"
+        );
 
         if (!nearest) {
           return true;
@@ -2921,7 +3034,9 @@ class Piece {
           }
         }
 
-        let nearest = katwaristera.find((x) => x.length == 3&& x[2].name != "king");
+        let nearest = katwaristera.find(
+          (x) => x.length == 3 && x[2].name != "king"
+        );
 
         if (!nearest) {
           return true;
@@ -2950,7 +3065,9 @@ class Piece {
           }
         }
 
-        let nearest = katwdeksia.find((x) => x.length == 3&& x[2].name != "king");
+        let nearest = katwdeksia.find(
+          (x) => x.length == 3 && x[2].name != "king"
+        );
 
         if (!nearest) {
           return true;
@@ -2977,6 +3094,7 @@ class Piece {
     let yAx = parseInt(ls.substring(ls.length - 2, ls.length - 1));
     let arra = [];
     let arrx = [];
+    
 
     for (let i = 0; i < arr.length; i++) {
       if (
@@ -2995,8 +3113,9 @@ class Piece {
         arrx.push(arr[i]);
       }
     }
+
     if ((y == yAx && x != xAx) || (y != yAx && x == xAx)) {
-      if (yAx < y) {
+      if (yAx < y && x == xAx) {
         let possibleMove = [];
         for (let b = 0; b < arra.length; b++) {
           let bbb = [];
@@ -3083,13 +3202,11 @@ class Piece {
             return false;
           }
         } else if (
-          xa.indexOf(nearest.slice(0, 1).toString()) >=
-          xa.indexOf(y.toString())
+          xa.indexOf(nearest.slice(0, 1).toString()) >= xa.indexOf(y.toString())
         ) {
           return true;
         } else if (
-          xa.indexOf(nearest.slice(0, 1).toString()) <=
-          xa.indexOf(y.toString())
+          xa.indexOf(nearest.slice(0, 1).toString()) <= xa.indexOf(y.toString())
         ) {
           return false;
         }
@@ -3122,13 +3239,11 @@ class Piece {
             return false;
           }
         } else if (
-          xa.indexOf(nearest.slice(0, 1).toString()) <=
-          xa.indexOf(y.toString())
+          xa.indexOf(nearest.slice(0, 1).toString()) <= xa.indexOf(y.toString())
         ) {
           return true;
         } else if (
-          xa.indexOf(nearest.slice(0, 1).toString()) >=
-          xa.indexOf(y.toString())
+          xa.indexOf(nearest.slice(0, 1).toString()) >= xa.indexOf(y.toString())
         ) {
           return false;
         }
@@ -3203,9 +3318,9 @@ class Piece {
       }
 
       if (test.length == 0) {
-        console.log("not a valid move");
         return false;
-      } else if (ioyf < ioy && ioxf < iox) {
+      }
+      if (ioyf < ioy && ioxf < iox) {
         let panwdeksia = [];
         for (let k = 0; k < arr.length; k++) {
           for (let j = 0; j < pd.length; j++) {
@@ -3215,7 +3330,7 @@ class Piece {
           }
         }
 
-        let nearest = panwdeksia.find((x) => x.length == 3 );
+        let nearest = panwdeksia.find((x) => x.length == 3);
 
         if (!nearest) {
           return true;
@@ -3244,7 +3359,9 @@ class Piece {
           }
         }
 
-        let nearest = panwaristera.find((x) => x.length == 3);
+        let nearest = panwaristera.find(
+          (x) => x.length == 3 && x[2].name != "king"
+        );
 
         if (!nearest) {
           return true;
@@ -3273,7 +3390,9 @@ class Piece {
           }
         }
 
-        let nearest = katwaristera.find((x) => x.length == 3);
+        let nearest = katwaristera.find(
+          (x) => x.length == 3 && x[2].name != "king"
+        );
 
         if (!nearest) {
           return true;
@@ -3302,7 +3421,9 @@ class Piece {
           }
         }
 
-        let nearest = katwdeksia.find((x) => x.length == 3);
+        let nearest = katwdeksia.find(
+          (x) => x.length == 3 && x[2].name != "king"
+        );
 
         if (!nearest) {
           return true;
@@ -3369,6 +3490,16 @@ class Player {
   }
 }
 
+class Game {
+  constructor() {
+    this.players = [player1.name, player2.name];
+    this.currentTurn = 0;
+  }
+  takeTurn() {
+    this.currentTurn = (this.currentTurn + 1) % this.players.length;
+  }
+}
+
 const player1 = new Player("white", "player1");
 const player2 = new Player("black", "player2");
 
@@ -3407,15 +3538,7 @@ const knight2Black = new Piece("black", "knight", "knight2Black");
 const rook2Black = new Piece("black", "rook", "rook2Black");
 const bishop2Black = new Piece("black", "bishop", "bishop2Black");
 
-class Game {
-  constructor() {
-    this.players = [player1.name, player2.name];
-    this.currentTurn = 0;
-  }
-  takeTurn() {
-    this.currentTurn = (this.currentTurn + 1) % this.players.length;
-  }
-}
+
 
 function startGame() {
   let board = [];
@@ -3588,8 +3711,6 @@ function fBoard(piece, chars, nums) {
     startGame();
   }
 
-  // Piece.whiteKingPossibleMoves(itemsArray);
-
   if (piece.move(itemsArray, chars, nums)) {
     for (let i = 0; i < itemsArray.length; i++) {
       if (
@@ -3622,12 +3743,8 @@ function fBoard(piece, chars, nums) {
         );
         for (let j = 0; j < itemsArray.length; j++) {
           if (itemsArray[j].slice(0, 2).toString() == coor) {
-            let g = itemsArray[j]
-            console.log(g[2])
+            let g = itemsArray[j];
             itemsArray[j].pop();
-         
-            console.log(g[2])
-            
             localStorage.setItem("board", JSON.stringify(itemsArray));
             return itemsArray;
           }
@@ -3641,8 +3758,60 @@ function fBoard(piece, chars, nums) {
   return itemsArray;
 }
 
+function aBoard(piece, chars, nums) {
+  let obj = Object.values(piece);
+  let spec = obj[2];
+  let ls = localStorage.getItem(spec);
+  let coor = ls.substring(ls.length - 4, ls.length - 1);
+
+  let itemsArray = localStorage.getItem("board")
+    ? JSON.parse(localStorage.getItem("board"))
+    : [];
+
+  if (itemsArray.length == 0) {
+    startGame();
+  }
+
+  if (piece.move(itemsArray, chars, nums)) {
+    for (let i = 0; i < itemsArray.length; i++) {
+      if (
+        itemsArray[i].slice(0, 2).toString() == [chars, nums].toString() &&
+        itemsArray[i].length < 3
+      ) {
+        itemsArray[i].push(piece);
+        piece.ax = itemsArray[i].slice(0, 2);
+
+        for (let j = 0; j < itemsArray.length; j++) {
+          if (itemsArray[j].slice(0, 2).toString() == coor) {
+            itemsArray[j].pop();
+
+            return itemsArray;
+          }
+        }
+      } else if (
+        itemsArray[i].slice(0, 2).toString() == [chars, nums].toString() &&
+        itemsArray[i].length == 3
+      ) {
+        itemsArray[i].pop();
+        itemsArray[i].push(piece);
+        piece.ax = itemsArray[i].slice(0, 2);
+        for (let j = 0; j < itemsArray.length; j++) {
+          if (itemsArray[j].slice(0, 2).toString() == coor) {
+            itemsArray[j].pop();
+            return itemsArray;
+          }
+        }
+      }
+    }
+  } else {
+    return false;
+  }
+
+  return itemsArray;
+}
+
 function endGame() {
-  console.log("game has ended :(");
+ 
   localStorage.clear();
   setTimeout(() => {
     document.location.reload();
@@ -3651,7 +3820,6 @@ function endGame() {
 
 document.addEventListener("DOMContentLoaded", () => {
   let firstClickTarget = null;
-  // let secondClickTarget = null;
   let board = localStorage.getItem("board")
     ? JSON.parse(localStorage.getItem("board"))
     : [];
@@ -3697,54 +3865,11 @@ document.addEventListener("DOMContentLoaded", () => {
         pawn16,
       ];
       if (!firstClickTarget) {
-       
         const button = event.target;
         const coors = [
           button.value.substring(0, 1),
           button.value.substring(1, 2),
         ];
-        let blackking;
-        let whiteking;
-
-        for (let i = 0; i < board.length; i++) {
-          let g = board[i];
-
-          if (g.length > 2 && g[2].spec == "kingBlack") {
-            blackking = board[i];
-          }
-          if (g.length > 2 && g[2].spec == "kingWhite") {
-            whiteking = board[i];
-          }
-        }
-        let shouldWhiteKingMove = false;
-        let shouldBlackKingMove = false;
-
-        for (let i = 0; i < pieces.length; i++) {
-          if (
-            board.length > 0 &&
-            pieces[i].check(
-              board,
-              whiteking.slice(0, 1).toString(),
-              parseInt(whiteking.slice(1, 2))
-            )
-          ) {
-            console.log(pieces[i]);
-            shouldWhiteKingMove = true;
-          }
-        }
-        for (let i = 0; i < pieces.length; i++) {
-          if (
-            board.length > 0 &&
-            pieces[i].check(
-              board,
-              blackking.slice(0, 1).toString(),
-              parseInt(blackking.slice(1, 2))
-            )
-          ) {
-            console.log(pieces[i]);
-            shouldBlackKingMove = true;
-          }
-        }
 
         if (board.length == 0) {
           board = startGame();
@@ -3752,113 +3877,87 @@ document.addEventListener("DOMContentLoaded", () => {
             document.location.reload();
           }, 0);
         }
-
-        // for (let i = 0; i < board.length; i++) {
-        //   if (board[i].slice(0, 2).toString() == coors.toString()) {
-        //     let o = board[i];
-        //     if (o.length < 3) {
-        //       console.log("must pick a piece to move");
-        //     } else if (turns % 2 == 0 && o[2].color == "white") {
-        //       console.log("it is black turn");
-        //     } else if (turns % 2 != 0 && o[2].color == "black") {
-        //       console.log("it is whites turn");
-        //     } else {
-        //       for (let f = 0; f < pieces.length; f++) {
-        //         if (turns % 2 == 0) {
-        //           if (shouldBlackKingMove == true && o[2].spec != "kingBlack") {
-        //             console.log("Black king is checked");
-        //             return;
-        //           } else if (
-        //             shouldBlackKingMove == true &&
-        //             o[2].spec == "kingBlack"
-        //           ) {
-        //             if (pieces[f].spec == "kingBlack") {
-        //               firstClickTarget = pieces[f];
-        //               console.log(firstClickTarget);
-        //             }
-        //           } else if (
-        //             shouldBlackKingMove == false &&
-        //             o[2].spec == pieces[f].spec
-        //           ) {
-        //             firstClickTarget = pieces[f];
-        //           }
-        //         } else if (turns % 2 != 0) {
-        //           if (shouldWhiteKingMove == true && o[2].spec != "kingWhite") {
-        //             console.log("white king is checked");
-        //             return;
-        //           } else if (
-        //             shouldWhiteKingMove == true &&
-        //             o[2].spec == "kingWhite"
-        //           ) {
-        //             if (pieces[f].spec == "kingWhite") {
-        //               firstClickTarget = pieces[f];
-        //             }
-        //           } else if (
-        //             shouldWhiteKingMove == false &&
-        //             o[2].spec == pieces[f].spec
-        //           ) {
-        //             firstClickTarget = pieces[f];
-        //           }
-        //         }
-        //       }
-        //     }
-        //   }
-        // }
         for (let i = 0; i < board.length; i++) {
           if (board[i].slice(0, 2).toString() == coors.toString()) {
             let o = board[i];
             if (o.length < 3) {
-              console.log("must pick a piece to move");
             } else if (turns % 2 == 0 && o[2].color == "white") {
-              console.log("it is black turn");
             } else if (turns % 2 != 0 && o[2].color == "black") {
-              console.log("it is whites turn");
             } else {
               for (let f = 0; f < pieces.length; f++) {
-                
-                  if (
-                    o[2].spec == pieces[f].spec
-                  ) {
-                    firstClickTarget = pieces[f];
-                    console.log(firstClickTarget)
-                  }
-                } 
+                if (o[2].spec == pieces[f].spec) {
+                  firstClickTarget = pieces[f];
+                  return;
+                }
               }
             }
           }
-      } else {
-        console.log(firstClickTarget)
-        for (let i = 0; i < board.length; i++) {
-          let g = board[i];
+        }
+      } else if (firstClickTarget) {
+        const button = event.target;
+        if (!button.value) {
+          return;
+        }
+
+        const moveResult = aBoard(
+          firstClickTarget,
+          button.value.substring(0, 1),
+          parseInt(button.value.substring(1, 2))
+        );
+
+        if (!moveResult) {
+          return;
+        }
+
+        let blackking;
+        let whiteking;
+
+        for (let i = 0; i < moveResult.length; i++) {
+          let g = moveResult[i];
 
           if (g.length > 2 && g[2].spec == "kingBlack") {
-            blackking = board[i];
+            blackking = moveResult[i];
           }
           if (g.length > 2 && g[2].spec == "kingWhite") {
-            whiteking = board[i];
+            whiteking = moveResult[i];
           }
         }
+
         let shouldWhiteKingMove = false;
         let shouldBlackKingMove = false;
 
-        for (let i = 0; i < pieces.length; i++) {
-          if (pieces[i].color=='black' &&
-            board.length > 0 &&
-            pieces[i].check(
-              board,
+        let newArr = [];
+        for (let i = 0; i < moveResult.length; i++) {
+          for (let j = 0; j < pieces.length; j++) {
+            let g = moveResult[i];
+            if (moveResult[i].length > 2 && g[2].spec == pieces[j].spec) {
+              newArr.push(pieces[j]);
+            }
+          }
+        }
+
+        for (let i = 0; i < newArr.length; i++) {
+          if (
+            moveResult.length > 0 &&
+            newArr[i].name != "king" &&
+            newArr[i].color == "black" &&
+            newArr[i].check(
+              moveResult,
               whiteking.slice(0, 1).toString(),
               parseInt(whiteking.slice(1, 2))
             )
           ) {
-          
             shouldWhiteKingMove = true;
           }
         }
-        for (let i = 0; i < pieces.length; i++) {
-          if (pieces[i].color=='white' &&
-            board.length > 0 &&
-            pieces[i].check(
-              board,
+
+        for (let i = 0; i < newArr.length; i++) {
+          if (
+            moveResult.length > 0 &&
+            newArr[i].name != "king" &&
+            newArr[i].color == "white" &&
+            newArr[i].check(
+              moveResult,
               blackking.slice(0, 1).toString(),
               parseInt(blackking.slice(1, 2))
             )
@@ -3866,68 +3965,29 @@ document.addEventListener("DOMContentLoaded", () => {
             shouldBlackKingMove = true;
           }
         }
-        const button = event.target;
-        if (
-          fBoard(
-            firstClickTarget,
-            button.value.substring(0, 1),
-            parseInt(button.value.substring(1, 2))
-          )
-        ){
-          if (turns % 2 == 0) {
-            if ( fBoard(firstClickTarget,button.value.substring(0, 1),parseInt(button.value.substring(1, 2))) && shouldBlackKingMove == true) {
-              console.log("Black king is checked");
-              return;
-            } else if (fBoard(firstClickTarget,button.value.substring(0, 1),parseInt(button.value.substring(1, 2))) && shouldBlackKingMove == false) {
-              fBoard(
-                firstClickTarget,
-                button.value.substring(0, 1),
-                parseInt(button.value.substring(1, 2))
-              );
-              localStorage.setItem("turns", turns + 1);
-              setTimeout(() => {
-                document.location.reload();
-              }, 0);
-            }
-          }else if (turns % 2 == 0) {
-            if (fBoard(firstClickTarget,button.value.substring(0, 1),parseInt(button.value.substring(1, 2))) && shouldWhiteKingMove == true) {
-              console.log("Black king is checked");
-              return;
-            } else if (fBoard(firstClickTarget,button.value.substring(0, 1),parseInt(button.value.substring(1, 2))) && shouldWhiteKingMove == false) {
-              fBoard(
-                firstClickTarget,
-                button.value.substring(0, 1),
-                parseInt(button.value.substring(1, 2))
-              );
-              localStorage.setItem("turns", turns + 1);
-              setTimeout(() => {
-                document.location.reload();
-              }, 0);
-            }
-          }
-        // if (
-        //   fBoard(
-        //     firstClickTarget,
-        //     button.value.substring(0, 1),
-        //     parseInt(button.value.substring(1, 2))
-        //   )
-        // ) {
-        //   fBoard(
-        //     firstClickTarget,
-        //     button.value.substring(0, 1),
-        //     parseInt(button.value.substring(1, 2))
-        //   );
-        //   localStorage.setItem("turns", turns + 1);
-        //   setTimeout(() => {
-        //     document.location.reload();
-        //   }, 0);
-        // }
-      }}
+
+        
+
+        if (turns % 2 == 0 && shouldBlackKingMove) {
+          console.log("Black king is still in check - Move blocked.");
+          return;
+        }
+
+        if (turns % 2 != 0 && shouldWhiteKingMove) {
+          console.log("White king is still in check - Move blocked.");
+          return;
+        }
+        fBoard(
+          firstClickTarget,
+          button.value.substring(0, 1),
+          parseInt(button.value.substring(1, 2))
+        );
+        localStorage.setItem("turns", turns + 1);
+        setTimeout(() => document.location.reload(), 0);
+      }
     })
   );
 });
-
-
 
 document.getElementById("endGame").addEventListener("click", () => endGame());
 
@@ -4036,6 +4096,7 @@ Array.from(i).forEach(async function (button) {
   }
 });
 document.getElementById("turns").innerText =
-  localStorage.getItem("turns") % 2 == 0
+  localStorage.getItem("turns")
+    ? localStorage.getItem("turns") % 2 != 0
     ? "it is whites turn"
-    : "it is blacks turn";
+    :  "it is black turn":"white starts "

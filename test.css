@@ -75,7 +75,7 @@ body{
 #endGame{
     background-color: grey;
     cursor: pointer;
-    margin-left: 50%;
+    margin-left: 49%;
     margin-bottom: 1%;
 }
 #endGame:hover{
@@ -91,4 +91,11 @@ body{
     width: 800px;
     margin: 0 auto;
     direction: rtl;
+}
+#turns{
+    color: white;
+    margin-left: 48%;
+}
+#turns:hover{
+    color: rgb(201, 201, 201);
 }
