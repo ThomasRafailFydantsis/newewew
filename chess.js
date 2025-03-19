@@ -3831,11 +3831,38 @@ document.addEventListener("DOMContentLoaded", () => {
   Array.from(u).forEach((button) =>
     button.addEventListener("click", (event) => {
       let pieces = [
-        queenBlack, kingBlack, knight1Black, rook1Black, bishop1Black,
-        knight2Black, rook2Black, bishop2Black, pawn1, pawn2, pawn3, pawn4,
-        pawn5, pawn6, pawn7, pawn8, queenWhite, kingWhite, knight1White,
-        rook1White, bishop1White, knight2White, rook2White, bishop2White,
-        pawn9, pawn10, pawn11, pawn12, pawn13, pawn14, pawn15, pawn16,
+        queenBlack,
+        kingBlack,
+        knight1Black,
+        rook1Black,
+        bishop1Black,
+        knight2Black,
+        rook2Black,
+        bishop2Black,
+        pawn1,
+        pawn2,
+        pawn3,
+        pawn4,
+        pawn5,
+        pawn6,
+        pawn7,
+        pawn8,
+        queenWhite,
+        kingWhite,
+        knight1White,
+        rook1White,
+        bishop1White,
+        knight2White,
+        rook2White,
+        bishop2White,
+        pawn9,
+        pawn10,
+        pawn11,
+        pawn12,
+        pawn13,
+        pawn14,
+        pawn15,
+        pawn16,
       ];
       if (!firstClickTarget) {
         const button = event.target;
@@ -3858,21 +3885,35 @@ document.addEventListener("DOMContentLoaded", () => {
             } else if (turns % 2 != 0 && o[2].color == "black") {
             } else {
               for (let f = 0; f < pieces.length; f++) {
-                
-                  if (
-                    o[2].spec == pieces[f].spec
-                  ) {
-                    firstClickTarget = pieces[f];
-                    console.log(firstClickTarget)
-                  }
-                } 
+                if (o[2].spec == pieces[f].spec) {
+                  firstClickTarget = pieces[f];
+                  return;
+                }
               }
             }
           }
-      } else {
-        console.log(firstClickTarget)
-        for (let i = 0; i < board.length; i++) {
-          let g = board[i];
+        }
+      } else if (firstClickTarget) {
+        const button = event.target;
+        if (!button.value) {
+          return;
+        }
+
+        const moveResult = aBoard(
+          firstClickTarget,
+          button.value.substring(0, 1),
+          parseInt(button.value.substring(1, 2))
+        );
+
+        if (!moveResult) {
+          return;
+        }
+
+        let blackking;
+        let whiteking;
+
+        for (let i = 0; i < moveResult.length; i++) {
+          let g = moveResult[i];
 
           if (g.length > 2 && g[2].spec == "kingBlack") {
             blackking = moveResult[i];
@@ -3885,11 +3926,23 @@ document.addEventListener("DOMContentLoaded", () => {
         let shouldWhiteKingMove = false;
         let shouldBlackKingMove = false;
 
-        for (let i = 0; i < pieces.length; i++) {
-          if (pieces[i].color=='black' &&
-            board.length > 0 &&
-            pieces[i].check(
-              board,
+        let newArr = [];
+        for (let i = 0; i < moveResult.length; i++) {
+          for (let j = 0; j < pieces.length; j++) {
+            let g = moveResult[i];
+            if (moveResult[i].length > 2 && g[2].spec == pieces[j].spec) {
+              newArr.push(pieces[j]);
+            }
+          }
+        }
+
+        for (let i = 0; i < newArr.length; i++) {
+          if (
+            moveResult.length > 0 &&
+            newArr[i].name != "king" &&
+            newArr[i].color == "black" &&
+            newArr[i].check(
+              moveResult,
               whiteking.slice(0, 1).toString(),
               parseInt(whiteking.slice(1, 2))
             )
@@ -3897,11 +3950,14 @@ document.addEventListener("DOMContentLoaded", () => {
             shouldWhiteKingMove = true;
           }
         }
-        for (let i = 0; i < pieces.length; i++) {
-          if (pieces[i].color=='white' &&
-            board.length > 0 &&
-            pieces[i].check(
-              board,
+
+        for (let i = 0; i < newArr.length; i++) {
+          if (
+            moveResult.length > 0 &&
+            newArr[i].name != "king" &&
+            newArr[i].color == "white" &&
+            newArr[i].check(
+              moveResult,
               blackking.slice(0, 1).toString(),
               parseInt(blackking.slice(1, 2))
             )
@@ -3909,68 +3965,29 @@ document.addEventListener("DOMContentLoaded", () => {
             shouldBlackKingMove = true;
           }
         }
-        const button = event.target;
-        if (
-          fBoard(
-            firstClickTarget,
-            button.value.substring(0, 1),
-            parseInt(button.value.substring(1, 2))
-          )
-        ){
-          if (turns % 2 == 0) {
-            if ( fBoard(firstClickTarget,button.value.substring(0, 1),parseInt(button.value.substring(1, 2))) && shouldBlackKingMove == true) {
-              console.log("Black king is checked");
-              return;
-            } else if (fBoard(firstClickTarget,button.value.substring(0, 1),parseInt(button.value.substring(1, 2))) && shouldBlackKingMove == false) {
-              fBoard(
-                firstClickTarget,
-                button.value.substring(0, 1),
-                parseInt(button.value.substring(1, 2))
-              );
-              localStorage.setItem("turns", turns + 1);
-              setTimeout(() => {
-                document.location.reload();
-              }, 0);
-            }
-          }else if (turns % 2 == 0) {
-            if (fBoard(firstClickTarget,button.value.substring(0, 1),parseInt(button.value.substring(1, 2))) && shouldWhiteKingMove == true) {
-              console.log("Black king is checked");
-              return;
-            } else if (fBoard(firstClickTarget,button.value.substring(0, 1),parseInt(button.value.substring(1, 2))) && shouldWhiteKingMove == false) {
-              fBoard(
-                firstClickTarget,
-                button.value.substring(0, 1),
-                parseInt(button.value.substring(1, 2))
-              );
-              localStorage.setItem("turns", turns + 1);
-              setTimeout(() => {
-                document.location.reload();
-              }, 0);
-            }
-          }
-        // if (
-        //   fBoard(
-        //     firstClickTarget,
-        //     button.value.substring(0, 1),
-        //     parseInt(button.value.substring(1, 2))
-        //   )
-        // ) {
-        //   fBoard(
-        //     firstClickTarget,
-        //     button.value.substring(0, 1),
-        //     parseInt(button.value.substring(1, 2))
-        //   );
-        //   localStorage.setItem("turns", turns + 1);
-        //   setTimeout(() => {
-        //     document.location.reload();
-        //   }, 0);
-        // }
-      }}
+
+        
+
+        if (turns % 2 == 0 && shouldBlackKingMove) {
+          console.log("Black king is still in check - Move blocked.");
+          return;
+        }
+
+        if (turns % 2 != 0 && shouldWhiteKingMove) {
+          console.log("White king is still in check - Move blocked.");
+          return;
+        }
+        fBoard(
+          firstClickTarget,
+          button.value.substring(0, 1),
+          parseInt(button.value.substring(1, 2))
+        );
+        localStorage.setItem("turns", turns + 1);
+        setTimeout(() => document.location.reload(), 0);
+      }
     })
   );
 });
-
-
 
 document.getElementById("endGame").addEventListener("click", () => endGame());
 
