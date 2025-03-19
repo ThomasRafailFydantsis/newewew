@@ -3651,7 +3651,6 @@ function endGame() {
 
 document.addEventListener("DOMContentLoaded", () => {
   let firstClickTarget = null;
-  // let secondClickTarget = null;
   let board = localStorage.getItem("board")
     ? JSON.parse(localStorage.getItem("board"))
     : [];
@@ -3663,46 +3662,63 @@ document.addEventListener("DOMContentLoaded", () => {
   Array.from(u).forEach((button) =>
     button.addEventListener("click", (event) => {
       let pieces = [
-        queenBlack,
-        kingBlack,
-        knight1Black,
-        rook1Black,
-        bishop1Black,
-        knight2Black,
-        rook2Black,
-        bishop2Black,
-        pawn1,
-        pawn2,
-        pawn3,
-        pawn4,
-        pawn5,
-        pawn6,
-        pawn7,
-        pawn8,
-        queenWhite,
-        kingWhite,
-        knight1White,
-        rook1White,
-        bishop1White,
-        knight2White,
-        rook2White,
-        bishop2White,
-        pawn9,
-        pawn10,
-        pawn11,
-        pawn12,
-        pawn13,
-        pawn14,
-        pawn15,
-        pawn16,
+        queenBlack, kingBlack, knight1Black, rook1Black, bishop1Black,
+        knight2Black, rook2Black, bishop2Black, pawn1, pawn2, pawn3, pawn4,
+        pawn5, pawn6, pawn7, pawn8, queenWhite, kingWhite, knight1White,
+        rook1White, bishop1White, knight2White, rook2White, bishop2White,
+        pawn9, pawn10, pawn11, pawn12, pawn13, pawn14, pawn15, pawn16,
       ];
       if (!firstClickTarget) {
-       
         const button = event.target;
         const coors = [
           button.value.substring(0, 1),
           button.value.substring(1, 2),
         ];
+
+        if (board.length == 0) {
+          board = startGame();
+          setTimeout(() => {
+            document.location.reload();
+          }, 0);
+        }
+        for (let i = 0; i < board.length; i++) {
+          if (board[i].slice(0, 2).toString() == coors.toString()) {
+            let o = board[i];
+            if (o.length < 3) {
+              console.log("must pick a piece to move");
+            } else if (turns % 2 == 0 && o[2].color == "white") {
+              console.log("it is black turn");
+            } else if (turns % 2 != 0 && o[2].color == "black") {
+              console.log("it is whites turn");
+            } else {
+              for (let f = 0; f < pieces.length; f++) {
+                if (o[2].spec == pieces[f].spec) {
+                  firstClickTarget = pieces[f];
+                  console.log(firstClickTarget);
+                  return;
+                }
+              }
+            }
+          }
+        }
+      } else if (firstClickTarget) {
+        const button = event.target;
+        if (!button.value) {
+            console.log("Error: Clicked element has no value attribute.");
+            return;
+        }
+
+        const moveResult = fBoard(
+            firstClickTarget,
+            button.value.substring(0, 1),
+            parseInt(button.value.substring(1, 2))
+        );
+
+        if (!moveResult) {
+            console.log("Invalid move");
+            return;
+        }
+
         let blackking;
         let whiteking;
 
@@ -3716,6 +3732,7 @@ document.addEventListener("DOMContentLoaded", () => {
             whiteking = board[i];
           }
         }
+
         let shouldWhiteKingMove = false;
         let shouldBlackKingMove = false;
 
@@ -3728,10 +3745,10 @@ document.addEventListener("DOMContentLoaded", () => {
               parseInt(whiteking.slice(1, 2))
             )
           ) {
-            console.log(pieces[i]);
             shouldWhiteKingMove = true;
           }
         }
+
         for (let i = 0; i < pieces.length; i++) {
           if (
             board.length > 0 &&
@@ -3741,191 +3758,30 @@ document.addEventListener("DOMContentLoaded", () => {
               parseInt(blackking.slice(1, 2))
             )
           ) {
-            console.log(pieces[i]);
             shouldBlackKingMove = true;
           }
         }
 
-        if (board.length == 0) {
-          board = startGame();
-          setTimeout(() => {
-            document.location.reload();
-          }, 0);
+        console.log("shouldWhiteKingMove:", shouldWhiteKingMove);
+        console.log("shouldBlackKingMove:", shouldBlackKingMove);
+
+        if (turns % 2 == 0 && shouldBlackKingMove) {
+            console.log("Black king is still in check - Move blocked.");
+            return;
         }
 
-        // for (let i = 0; i < board.length; i++) {
-        //   if (board[i].slice(0, 2).toString() == coors.toString()) {
-        //     let o = board[i];
-        //     if (o.length < 3) {
-        //       console.log("must pick a piece to move");
-        //     } else if (turns % 2 == 0 && o[2].color == "white") {
-        //       console.log("it is black turn");
-        //     } else if (turns % 2 != 0 && o[2].color == "black") {
-        //       console.log("it is whites turn");
-        //     } else {
-        //       for (let f = 0; f < pieces.length; f++) {
-        //         if (turns % 2 == 0) {
-        //           if (shouldBlackKingMove == true && o[2].spec != "kingBlack") {
-        //             console.log("Black king is checked");
-        //             return;
-        //           } else if (
-        //             shouldBlackKingMove == true &&
-        //             o[2].spec == "kingBlack"
-        //           ) {
-        //             if (pieces[f].spec == "kingBlack") {
-        //               firstClickTarget = pieces[f];
-        //               console.log(firstClickTarget);
-        //             }
-        //           } else if (
-        //             shouldBlackKingMove == false &&
-        //             o[2].spec == pieces[f].spec
-        //           ) {
-        //             firstClickTarget = pieces[f];
-        //           }
-        //         } else if (turns % 2 != 0) {
-        //           if (shouldWhiteKingMove == true && o[2].spec != "kingWhite") {
-        //             console.log("white king is checked");
-        //             return;
-        //           } else if (
-        //             shouldWhiteKingMove == true &&
-        //             o[2].spec == "kingWhite"
-        //           ) {
-        //             if (pieces[f].spec == "kingWhite") {
-        //               firstClickTarget = pieces[f];
-        //             }
-        //           } else if (
-        //             shouldWhiteKingMove == false &&
-        //             o[2].spec == pieces[f].spec
-        //           ) {
-        //             firstClickTarget = pieces[f];
-        //           }
-        //         }
-        //       }
-        //     }
-        //   }
-        // }
-        for (let i = 0; i < board.length; i++) {
-          if (board[i].slice(0, 2).toString() == coors.toString()) {
-            let o = board[i];
-            if (o.length < 3) {
-              console.log("must pick a piece to move");
-            } else if (turns % 2 == 0 && o[2].color == "white") {
-              console.log("it is black turn");
-            } else if (turns % 2 != 0 && o[2].color == "black") {
-              console.log("it is whites turn");
-            } else {
-              for (let f = 0; f < pieces.length; f++) {
-                
-                  if (
-                    o[2].spec == pieces[f].spec
-                  ) {
-                    firstClickTarget = pieces[f];
-                    console.log(firstClickTarget)
-                  }
-                } 
-              }
-            }
-          }
-      } else {
-        console.log(firstClickTarget)
-        for (let i = 0; i < board.length; i++) {
-          let g = board[i];
+        if (turns % 2 != 0 && shouldWhiteKingMove) {
+            console.log("White king is still in check - Move blocked.");
+            return;
+        }
 
-          if (g.length > 2 && g[2].spec == "kingBlack") {
-            blackking = board[i];
-          }
-          if (g.length > 2 && g[2].spec == "kingWhite") {
-            whiteking = board[i];
-          }
-        }
-        let shouldWhiteKingMove = false;
-        let shouldBlackKingMove = false;
-
-        for (let i = 0; i < pieces.length; i++) {
-          if (pieces[i].color=='black' &&
-            board.length > 0 &&
-            pieces[i].check(
-              board,
-              whiteking.slice(0, 1).toString(),
-              parseInt(whiteking.slice(1, 2))
-            )
-          ) {
-          
-            shouldWhiteKingMove = true;
-          }
-        }
-        for (let i = 0; i < pieces.length; i++) {
-          if (pieces[i].color=='white' &&
-            board.length > 0 &&
-            pieces[i].check(
-              board,
-              blackking.slice(0, 1).toString(),
-              parseInt(blackking.slice(1, 2))
-            )
-          ) {
-            shouldBlackKingMove = true;
-          }
-        }
-        const button = event.target;
-        if (
-          fBoard(
-            firstClickTarget,
-            button.value.substring(0, 1),
-            parseInt(button.value.substring(1, 2))
-          )
-        ){
-          if (turns % 2 == 0) {
-            if ( fBoard(firstClickTarget,button.value.substring(0, 1),parseInt(button.value.substring(1, 2))) && shouldBlackKingMove == true) {
-              console.log("Black king is checked");
-              return;
-            } else if (fBoard(firstClickTarget,button.value.substring(0, 1),parseInt(button.value.substring(1, 2))) && shouldBlackKingMove == false) {
-              fBoard(
-                firstClickTarget,
-                button.value.substring(0, 1),
-                parseInt(button.value.substring(1, 2))
-              );
-              localStorage.setItem("turns", turns + 1);
-              setTimeout(() => {
-                document.location.reload();
-              }, 0);
-            }
-          }else if (turns % 2 == 0) {
-            if (fBoard(firstClickTarget,button.value.substring(0, 1),parseInt(button.value.substring(1, 2))) && shouldWhiteKingMove == true) {
-              console.log("Black king is checked");
-              return;
-            } else if (fBoard(firstClickTarget,button.value.substring(0, 1),parseInt(button.value.substring(1, 2))) && shouldWhiteKingMove == false) {
-              fBoard(
-                firstClickTarget,
-                button.value.substring(0, 1),
-                parseInt(button.value.substring(1, 2))
-              );
-              localStorage.setItem("turns", turns + 1);
-              setTimeout(() => {
-                document.location.reload();
-              }, 0);
-            }
-          }
-        // if (
-        //   fBoard(
-        //     firstClickTarget,
-        //     button.value.substring(0, 1),
-        //     parseInt(button.value.substring(1, 2))
-        //   )
-        // ) {
-        //   fBoard(
-        //     firstClickTarget,
-        //     button.value.substring(0, 1),
-        //     parseInt(button.value.substring(1, 2))
-        //   );
-        //   localStorage.setItem("turns", turns + 1);
-        //   setTimeout(() => {
-        //     document.location.reload();
-        //   }, 0);
-        // }
-      }}
+        localStorage.setItem("turns", turns + 1);
+        setTimeout(() => document.location.reload(), 0);
+      }
     })
   );
 });
+
 
 
 
