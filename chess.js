@@ -87,6 +87,7 @@ class Piece {
         }
       }
     }
+
     let testf = [];
     if (whiteKingPmoves.length > 0) {
       for (let i = 0; i < newArr.length; i++) {
@@ -408,14 +409,16 @@ class Piece {
 
         secondloop: for (let i = ioyf + 1; i <= ya.length + 1; i++) {
           for (let j = ioxf - 1; j >= 0; j--) {
-            // if(xa.indexOf(xa[j])>=0 && ya[i]<=7){
+            if(xa.indexOf(xa[j])>=0 && ya[i]<=8){
             pa.push([xa[j], ya[i++]]);
             if (xa[j] == "A" || ya[i - 1] == 8) {
               break secondloop;
             }
-            // }
+            }
           }
         }
+
+      console.log(pa);
 
         thirdloop: for (let i = ioyf - 1; i >= 0; i--) {
           for (let j = ioxf - 1; j >= 0; j--) {
@@ -483,9 +486,10 @@ class Piece {
               }
             }
           }
-
+          panwaristera = panwaristera.reverse();
           let nearest = panwaristera.find((x) => x.length == 3);
-
+          console.log(nearest);
+          console.log(panwaristera)
           if (!nearest) {
             return false;
           } else if (nearest.slice(0, 2).toString() == [x, y].toString()) {
@@ -510,9 +514,11 @@ class Piece {
               }
             }
           }
-
+          katwaristera = katwaristera.reverse();
           let nearest = katwaristera.find((x) => x.length == 3);
-
+         
+          console.log(nearest);
+          console.log(katwaristera)
           if (!nearest) {
             return false;
           } else if (nearest.slice(0, 2).toString() == [x, y].toString()) {
@@ -736,7 +742,6 @@ class Piece {
           arrx.push(arr[i]);
         }
       }
-
       let f = [...arra, ...arrx];
       let h = [];
       for (let i = 0; i < f.length; i++) {
@@ -744,7 +749,9 @@ class Piece {
           h.push(f[i]);
         }
       }
-      if (yAx < y && x == xAx) {
+      if (h.length == 0) {
+        return false;
+      } else if (yAx < y && x == xAx) {
         let possibleMove = [];
         for (let l = 0; l < arra.length; l++) {
           if (
@@ -765,8 +772,8 @@ class Piece {
           let q = nearest[2];
           let fc = q.color;
           if (
-            (this.color != fc && q.spec == "kingWhite") ||
-            q.spec == "kingBlack"
+            (this.color == "black" && q.color == "white") ||
+            (this.color == "white" && q.color == "black")
           ) {
             return true;
           } else {
@@ -796,8 +803,8 @@ class Piece {
           let q = nearest[2];
           let fc = q.color;
           if (
-            (this.color != fc && q.spec == "kingWhite") ||
-            q.spec == "kingBlack"
+            (this.color == "black" && q.color == "white") ||
+            (this.color == "white" && q.color == "black")
           ) {
             return true;
           } else {
@@ -828,8 +835,8 @@ class Piece {
           let q = nearest[2];
           let fc = q.color;
           if (
-            (this.color != fc && q.spec == "kingWhite") ||
-            q.spec == "kingBlack"
+            (this.color == "black" && q.color == "white") ||
+            (this.color == "white" && q.color == "black")
           ) {
             return true;
           } else {
@@ -860,9 +867,10 @@ class Piece {
         } else if (nearest.slice(0, 2).toString() == [x, y].toString()) {
           let q = nearest[2];
           let fc = q.color;
+
           if (
-            (this.color != fc && q.spec == "kingWhite") ||
-            q.spec == "kingBlack"
+            (this.color == "black" && q.color == "white") ||
+            (this.color == "white" && q.color == "black")
           ) {
             return true;
           } else {
@@ -870,7 +878,7 @@ class Piece {
           }
         }
       }
-      let g = [...arra, ...arrx];
+     
       if (y != yAx && x != xAx && [x, y].toString() != [xAx, yAx].toString()) {
         let ya = [1, 2, 3, 4, 5, 6, 7, 8];
         let ioxf = xa.indexOf(xAx);
@@ -896,14 +904,16 @@ class Piece {
 
         secondloop: for (let i = ioyf + 1; i <= ya.length + 1; i++) {
           for (let j = ioxf - 1; j >= 0; j--) {
-            // if(xa.indexOf(xa[j])>=0 && ya[i]<=7){
+            if(xa.indexOf(xa[j])>=0 && ya[i]<=8){
             pa.push([xa[j], ya[i++]]);
             if (xa[j] == "A" || ya[i - 1] == 8) {
               break secondloop;
             }
-            // }
+            }
           }
         }
+
+      console.log(pa);
 
         thirdloop: for (let i = ioyf - 1; i >= 0; i--) {
           for (let j = ioxf - 1; j >= 0; j--) {
@@ -971,9 +981,10 @@ class Piece {
               }
             }
           }
-
+          panwaristera = panwaristera.reverse();
           let nearest = panwaristera.find((x) => x.length == 3);
-
+          console.log(nearest);
+          console.log(panwaristera)
           if (!nearest) {
             return false;
           } else if (nearest.slice(0, 2).toString() == [x, y].toString()) {
@@ -998,9 +1009,11 @@ class Piece {
               }
             }
           }
-
+          katwaristera = katwaristera.reverse();
           let nearest = katwaristera.find((x) => x.length == 3);
-
+         
+          console.log(nearest);
+          console.log(katwaristera)
           if (!nearest) {
             return false;
           } else if (nearest.slice(0, 2).toString() == [x, y].toString()) {
@@ -1835,8 +1848,8 @@ class Piece {
           }
         }
       } else if (
-        (y == yAx + 1 && xAx != x && x == xa[xa.indexOf(xAx) + 1]) ||
-        x == xa[xa.indexOf(xAx) - 1]
+        y == yAx + 1 && xAx != x && (x == xa[xa.indexOf(xAx) + 1] ||
+        x == xa[xa.indexOf(xAx) - 1])
       ) {
         for (let i = 0; i < arr.length; i++) {
           if (arr[i].slice(0, 2).toString() == [x, y].toString()) {
@@ -1880,8 +1893,8 @@ class Piece {
           }
         }
       } else if (
-        (y == yAx - 1 && xAx != x && x == xa[xa.indexOf(xAx) + 1]) ||
-        x == xa[xa.indexOf(xAx) - 1]
+        y == yAx - 1 && xAx != x &&( x == xa[xa.indexOf(xAx) + 1] ||
+        x == xa[xa.indexOf(xAx) - 1])
       ) {
         for (let i = 0; i < arr.length; i++) {
           if (arr[i].slice(0, 2).toString() == [x, y].toString()) {
@@ -3483,26 +3496,6 @@ class Piece {
   }
 }
 
-class Player {
-  constructor(color, name) {
-    this.name = name;
-    this.color = color;
-  }
-}
-
-class Game {
-  constructor() {
-    this.players = [player1.name, player2.name];
-    this.currentTurn = 0;
-  }
-  takeTurn() {
-    this.currentTurn = (this.currentTurn + 1) % this.players.length;
-  }
-}
-
-const player1 = new Player("white", "player1");
-const player2 = new Player("black", "player2");
-
 let pawn1 = new Piece("black", "pawn", "pawn1");
 let pawn2 = new Piece("black", "pawn", "pawn2");
 let pawn3 = new Piece("black", "pawn", "pawn3");
@@ -3864,6 +3857,9 @@ document.addEventListener("DOMContentLoaded", () => {
         pawn15,
         pawn16,
       ];
+      let newArr1 = [];
+      let km = [];
+
       if (!firstClickTarget) {
         const button = event.target;
         const coors = [
@@ -3908,7 +3904,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!moveResult) {
           return;
         }
-
+        console.log("Move result: ", moveResult);
         let blackking;
         let whiteking;
 
@@ -3966,16 +3962,114 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         }
 
+        console.log("White king in check: ", shouldWhiteKingMove);
+        console.log("Black king in check: ", shouldBlackKingMove);
         
 
         if (turns % 2 == 0 && shouldBlackKingMove) {
-          console.log("Black king is still in check - Move blocked.");
-          return;
+          let checkCount = 0;
+          
+          for (let i = 0; i < moveResult.length; i++) {
+            if (moveResult[i].length > 2) {
+              let g = moveResult[i];
+              if (g[2].color == "black" ) {
+                km.push(g[2]);
+              }
+            }
+          }
+      
+          for (let j = 0; j < km.length; j++) {
+            for (let i = 0; i < pieces.length; i++) {
+              if (km[j].spec == pieces[i].spec) {
+                newArr1.push(pieces[i]);
+              }
+            }
+          }
+         
+          for(let i=0;i<newArr1.length;i++){
+            for(let j=0;j<moveResult.length;j++){
+             const result = aBoard(newArr1[i],moveResult[j].slice(0,1),parseInt(moveResult[j].slice(1,2)));
+             console.log("Result: ",result);
+             if(result){
+             for (let i = 0; i < newArr.length; i++) {
+              if (
+                result.length > 0 &&
+                newArr[i].name != "king" &&
+                newArr[i].color == "white" &&
+                !newArr[i].check(
+                  result,
+                  blackking.slice(0, 1).toString(),
+                  parseInt(blackking.slice(1, 2))
+                )
+              ) {
+                checkCount++;
+                console.log("Check count: ", checkCount);
+              }
+            
+            }
+            if(checkCount == 0){
+              console.log("game has ended");
+              return
+            }else{
+              console.log("game has not ended");
+              return
+            }
+            }
+          }
+          }
         }
 
         if (turns % 2 != 0 && shouldWhiteKingMove) {
-          console.log("White king is still in check - Move blocked.");
-          return;
+          let checkCount = 0;
+          
+          for (let i = 0; i < moveResult.length; i++) {
+            if (moveResult[i].length > 2) {
+              let g = moveResult[i];
+              if (g[2].color == "white" ) {
+                km.push(g[2]);
+              }
+            }
+          }
+      
+          for (let j = 0; j < km.length; j++) {
+            for (let i = 0; i < pieces.length; i++) {
+              if (km[j].spec == pieces[i].spec) {
+                newArr1.push(pieces[i]);
+              }
+            }
+          }
+         
+          for(let i=0;i<newArr1.length;i++){
+            for(let j=0;j<moveResult.length;j++){
+             const result = aBoard(newArr1[i],moveResult[j].slice(0,1),parseInt(moveResult[j].slice(1,2)));
+             console.log("Result: ",result);
+             if(result){
+             for (let i = 0; i < newArr.length; i++) {
+              if (
+                result.length > 0 &&
+                newArr[i].name != "king" &&
+                newArr[i].color == "black" &&
+                !newArr[i].check(
+                  result,
+                  blackking.slice(0, 1).toString(),
+                  parseInt(blackking.slice(1, 2))
+                )
+              ) {
+                checkCount++;
+                console.log("Check count: ", checkCount);
+              }
+            
+            }
+            if(checkCount == 0){
+              console.log("game has ended");
+              return
+            }else{
+              console.log("game has not ended");
+              return
+            }
+            }
+          }
+          }
         }
         fBoard(
           firstClickTarget,
@@ -3983,7 +4077,7 @@ document.addEventListener("DOMContentLoaded", () => {
           parseInt(button.value.substring(1, 2))
         );
         localStorage.setItem("turns", turns + 1);
-        setTimeout(() => document.location.reload(), 0);
+        // setTimeout(() => document.location.reload(), 0);
       }
     })
   );
