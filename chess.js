@@ -4077,7 +4077,7 @@ document.addEventListener("DOMContentLoaded", () => {
           parseInt(button.value.substring(1, 2))
         );
         localStorage.setItem("turns", turns + 1);
-        // setTimeout(() => document.location.reload(), 0);
+        setTimeout(() => document.location.reload(), 0);
       }
     })
   );
