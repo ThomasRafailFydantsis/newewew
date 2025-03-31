@@ -539,10 +539,7 @@ class Piece {
         }
         kdi.push(katwdeksia[i]);
       }
-      console.log(pai);
-      console.log(pdi);
-      console.log(kai);
-      console.log(kdi);
+     
          let  hl=[...pai, ...pdi, ...kai, ...kdi];
             let blackKing = localStorage.getItem('kingBlack');
             let xAxb = blackKing.substring(blackKing.length-4, blackKing.length-3);
@@ -860,7 +857,7 @@ for(let i=0; i<k.length; i++){
 
       secondloop: for (let i = ioyf + 1; i <= ya.length + 1; i++) {
         for (let j = ioxf - 1; j >= 0; j--) {
-          // if(xa.indexOf(xa[j])>=0 && ya[i]<=7){
+         
           pa.push([xa[j], ya[i++]]);
           if (xa[j] == "A" || ya[i - 1] == 8) {
             break secondloop;
@@ -985,10 +982,7 @@ for(let i=0; i<k.length; i++){
         }
         kdi.push(katwdeksia[i]);
       }
-      console.log(pai);
-      console.log(pdi);
-      console.log(kai);
-      console.log(kdi);
+  
          let  hl=[...pai, ...pdi, ...kai, ...kdi];
             let blackKing = localStorage.getItem('kingBlack');
             let xAxb = blackKing.substring(blackKing.length-4, blackKing.length-3);
@@ -2141,10 +2135,11 @@ for(let i=0; i<k.length; i++){
       let hl=[...pi, ...di, ...ki, ...ai];
      
        for(let i=0; i<hl.length; i++){
-         if(hl[i].toString()==[x, y].toString()){
+         if(hl[i].slice(0,2).toString()==[x, y].toString()){
          isValid=true;
          }
        }
+      
        if(isValid){
          return true;}
         else{
@@ -3320,18 +3315,17 @@ for(let i=0; i<k.length; i++){
         if((yAx==2&&arr[i].slice(0,1)==xAx && arr[i].length==2&& (parseInt(arr[i].slice(1,2))==yAx+1 || parseInt(arr[i].slice(1,2))==yAx+2))||
         (arr[i].slice(0,1).toString()==xa[xa.indexOf(xAx)+1] && parseInt(arr[i].slice(1,2))==yAx+1 && arr[i].length==3)||
         (arr[i].slice(0,1).toString()==xa[xa.indexOf(xAx)-1] && parseInt(arr[i].slice(1,2))==yAx+1 && arr[i].length==3)){
-          console.log(arr[i].slice(0,2).join("").toString());
+         
           let div = document.getElementById(arr[i].slice(0,2).join("").toString());
-          console.log(div);
+       
           div.style.backgroundColor = "rgba(0, 255, 0, 0.5)";
         }else if(yAx!=2 &&
           (arr[i].slice(0,1)==xAx && parseInt(arr[i].slice(1,2))==yAx+1 && arr[i].length==2)||
           (arr[i].slice(0,1).toString()==xa[xa.indexOf(xAx)+1] && parseInt(arr[i].slice(1,2))==yAx+1 && arr[i].length==3)||
           (arr[i].slice(0,1).toString()==xa[xa.indexOf(xAx)-1] && parseInt(arr[i].slice(1,2))==yAx+1 && arr[i].length==3)){
-            console.log(xa[xa.indexOf(xAx)+1]);
-            console.log(arr[i].slice(0,2).join("").toString());
+           
             let div = document.getElementById(arr[i].slice(0,2).join("").toString());
-            console.log(div);
+         
             div.style.backgroundColor = "rgba(103, 255, 103, 0.4)";
           }
       }
@@ -3341,18 +3335,14 @@ for(let i=0; i<k.length; i++){
         if((yAx==7&&arr[i].slice(0,1)==xAx &&arr[i].length==2 && (parseInt(arr[i].slice(1,2))==yAx-1 || parseInt(arr[i].slice(1,2))==yAx-2))||
         (arr[i].slice(0,1).toString()==xa[xa.indexOf(xAx)+1] && parseInt(arr[i].slice(1,2))==yAx-1 && arr[i].length==3)||
         (arr[i].slice(0,1).toString()==xa[xa.indexOf(xAx)-1] && parseInt(arr[i].slice(1,2))==yAx-1 && arr[i].length==3)){
-          console.log(arr[i].slice(0,2).join("").toString());
+       
           let div = document.getElementById(arr[i].slice(0,2).join("").toString());
-          console.log(div);
           div.style.backgroundColor = "rgba(0, 255, 0, 0.4)";
         }else if(yAx!=7 &&
         (arr[i].slice(0,1)==xAx && parseInt(arr[i].slice(1,2))==yAx-1 && arr[i].length==2)||
         (arr[i].slice(0,1).toString()==xa[xa.indexOf(xAx)+1] && parseInt(arr[i].slice(1,2))==yAx-1 && arr[i].length==3)||
         (arr[i].slice(0,1).toString()==xa[xa.indexOf(xAx)-1] && parseInt(arr[i].slice(1,2))==yAx-1 && arr[i].length==3)){
-          console.log(xa[xa.indexOf(xAx)+1]);
-          console.log(arr[i].slice(0,2).join("").toString());
           let div = document.getElementById(arr[i].slice(0,2).join("").toString());
-          console.log(div);
           div.style.backgroundColor = "rgba(103, 255, 103, 0.4)";
         }
       }
@@ -3616,10 +3606,7 @@ for(let i=0; i<k.length; i++){
         }
         kdi.push(katwdeksia[i]);
       }
-      console.log(pai);
-      console.log(pdi);
-      console.log(kai);
-      console.log(kdi);
+     
          let  hl=[...pai, ...pdi, ...kai, ...kdi];
             
             for(let i=0; i<hl.length; i++){
@@ -3894,7 +3881,7 @@ for(let i=0; i<k.length; i++){
       let arr = JSON.parse(board);
       if(this.color=='white'){
         let result = Piece.whiteKingPossibleMoves(arr);
-        console.log(result);
+      
         for(let i=0; i<result.length; i++){
           let div = document.getElementById(result[i].slice(0,2).join("").toString());
           div.style.backgroundColor = "rgba(0, 255, 0, 0.5)";
@@ -3902,7 +3889,6 @@ for(let i=0; i<k.length; i++){
       }
       if(this.color=='black'){
         let result = Piece.blackKingPossibleMoves(arr);
-        console.log(result);
         for(let i=0; i<result.length; i++){
           let div = document.getElementById(result[i].slice(0,2).join("").toString());
           div.style.backgroundColor = "rgba(0, 255, 0, 0.5)";
@@ -4330,7 +4316,7 @@ document.addEventListener("DOMContentLoaded", () => {
               for (let f = 0; f < pieces.length; f++) {
                 if (o[2].spec == pieces[f].spec) {
                   firstClickTarget = pieces[f];
-                  console.log("First click target: ", firstClickTarget);
+                 
                   pieces[f].highLightMoves(board);
                   return;
                 }
@@ -4414,12 +4400,14 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("White king in check: ", shouldWhiteKingMove);
         console.log("Black king in check: ", shouldBlackKingMove);
         
-
+        let boardCheck=0;
+        let checkCount = 0;
+        let resultCount = 0;
+       
+        let gg=[];
+        let newArr2 = [];
         if (turns % 2 == 0 && shouldBlackKingMove) {
-          let checkCount = 0;
-          let checkCount1 = 0;
-          let gg=[];
-          let newArr2 = [];
+          
           for (let i = 0; i < moveResult.length; i++) {
             if (moveResult[i].length > 2) {
               let g = moveResult[i];
@@ -4437,70 +4425,64 @@ document.addEventListener("DOMContentLoaded", () => {
             }
           }
 
-          for (let i = 0; i < moveResult.length; i++) {
-            if (moveResult[i].length > 2) {
-              let g = moveResult[i];
-              if (g[2].color == "white" ) {
-                gg.push(g[2]);
-              }
-            }
-          }
-      
-          for (let j = 0; j < gg.length; j++) {
-            for (let i = 0; i < pieces.length; i++) {
-              if (gg[j].spec == pieces[i].spec) {
-                newArr2.push(pieces[i]);
-              }
-            }
-          }
+          
          
           for(let i=0;i<newArr1.length;i++){
             for(let j=0;j<moveResult.length;j++){
-             const resultA = aBoard(newArr1[i],moveResult[j].slice(0,1).toString(),parseInt(moveResult[j].slice(1,2)));
-         
+              
+             let resultA = aBoard(newArr1[i],moveResult[j].slice(0,1).toString(),parseInt(moveResult[j].slice(1,2)));
              if(resultA){
+             for (let i = 0; i < resultA.length; i++) {
+              if (resultA[i].length > 2) {
+                let g = resultA[i];
+                if (g[2].color == "white" ) {
+                  gg.push(g[2]);
+                }
+              }
+            }
+            for (let j = 0; j < gg.length; j++) {
+              for (let i = 0; i < pieces.length; i++) {
+                if (gg[j].spec == pieces[i].spec) {
+                  newArr2.push(pieces[i]);
+                }
+              }
+            }
+            console.log("New array 2: ", newArr2);
+           
+              resultCount++;
+             
+             
              for (let l = 0; l < newArr2.length; l++) {
               if (
                 resultA.length == 64 &&
                 newArr2[l].name != "king" &&
-                newArr2[l].color == "white" &&
                 newArr2[l].check(
                   resultA,
                   blackking.slice(0, 1).toString(),
                   parseInt(blackking.slice(1, 2))
-                )==true
+                )
               ) {
                 checkCount++;
                 
-              }else if( resultA.length > 0 &&
-                newArr2[l].name != "king" &&
-                newArr2[l].color == "white" &&
-                newArr2[l].check(
-                  resultA,
-                  blackking.slice(0, 1).toString(),
-                  parseInt(blackking.slice(1, 2))
-                )==false){
-                  
-                checkCount1++;
-                
               }
-            
             }
-            
+            if(checkCount>0){
+              boardCheck++;
+             
             }
-          }
-          }
-          console.log("Check count: ", checkCount1);
-          console.log("Check count: ", checkCount);
-          if(checkCount1 == 0){
-            console.log("game has ended");
-            return
-          }else{
-            console.log("game has not ended");
-            return
+            }
+            newArr2=[];
           }
         }
-
+        
+        if(boardCheck==resultCount){
+          console.log("game has ended");
+          return
+        }else{
+          console.log("game has not ended");
+          return
+        }
+      }
         if (turns % 2 != 0 && shouldWhiteKingMove) {
           let checkCount = 0;
           
@@ -4559,7 +4541,7 @@ document.addEventListener("DOMContentLoaded", () => {
           parseInt(button.value.substring(1, 2))
         );
         localStorage.setItem("turns", turns + 1);
-        setTimeout(() => document.location.reload(), 0);
+        // setTimeout(() => document.location.reload(), 0);
       }
     })
   );
